@@ -10,6 +10,19 @@ function MyApp() {
     const updated = characters.filter((character, i) => {
       return i !== index;
     });
+    const promise = fetch(`http://localhost:8000/users/${characters[index].id}`, {
+      method: "DELETE",
+    }).then(response => {
+      if(response.status === 204) {
+        console.log("USCCESS");
+        return null;
+      }else if(response.status === 404){
+        console.log("unable to find id for DELETE");
+        return null;
+      }
+      
+    });
+    
     setCharacters(updated);
   }
 
